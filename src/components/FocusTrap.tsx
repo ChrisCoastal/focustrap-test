@@ -1,6 +1,6 @@
 import type { ComponentProps, FC, PropsWithChildren } from 'react';
 import { useEffect, useInsertionEffect, useRef } from 'react';
-import { tabbable } from 'tabbable';
+import { focusable } from 'tabbable';
 
 export interface FocusTrapProps extends PropsWithChildren<ComponentProps<'div'>> {
   isActive: boolean;
@@ -20,8 +20,8 @@ export const FocusTrap: FC<FocusTrapProps> = ({
 }) => {
   const prevFocusedRef = useRef<FocusableElement | null>(null);
   const trapContainerRef = useRef<HTMLDivElement | null>(null);
-  const focusableElementsRef = useRef<FocusableElement[]>([]);
   const autoFocusedChildRef = useRef<FocusableElement | null>(null);
+  const focusableElementsRef = useRef<FocusableElement[]>([]);
   const firstFocusableRef = useRef<FocusableElement | null>(null);
   const lastFocusableRef = useRef<FocusableElement | null>(null);
 
@@ -52,8 +52,9 @@ export const FocusTrap: FC<FocusTrapProps> = ({
     return autoFocusedChildRef.current || focusFrom;
   };
 
-  // useInsertionEffect required get the currently focused element before any DOM mutation effecting
-  // element focussed before the trap is mounted (ie: autoFocus prop being passed to a child element of the FocusTrap)
+  // useInsertionEffect required to create a ref to the current focused element
+  // before any DOM mutation that might change the focus prior to the trap activating
+  // ie: if an autoFocus prop is passed to a child element within the FocusTrap
   useInsertionEffect(() => {
     // before moving focus into the trap save the currently focused element
     prevFocusedRef.current = isFocusableElement(document.activeElement)
@@ -69,7 +70,7 @@ export const FocusTrap: FC<FocusTrapProps> = ({
   useEffect(() => {
     // if children mutate while the trap is active, update the focusable elements
     const focusableElements = trapContainerRef.current
-      ? tabbable(trapContainerRef.current).filter((element) => isFocusableElement(element))
+      ? focusable(trapContainerRef.current).filter((element) => isFocusableElement(element))
       : [];
     console.log(focusableElements);
     focusableElementsRef.current = focusableElements;

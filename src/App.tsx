@@ -1,36 +1,45 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Modal } from 'flowbite-react';
 import { FocusTrap } from './components/FocusTrap';
 import Nested from './components/Nested';
+import FocusIs from './components/FocusIs';
 
 function App() {
   const [open, setOpen] = useState(false);
+  console.log(open);
+  const handleOpen = (open = false) => {
+    console.log(open);
+    setOpen((open) => !open);
+  };
 
   return (
     <div className="App">
+      <FocusIs />
+      <button>dud</button>
+      <button>dud</button>
+      <button>dud</button>
       <div>
-        <button onClick={() => setOpen((open) => !open)}>open is {open}</button>
+        <button onClick={() => handleOpen()}>Trap is {open ? 'active' : 'inactive'}</button>
       </div>
-      <label htmlFor="from-end">focus from end</label>
-      <input type="checkbox" id="from-end"></input>
-      <label htmlFor="trap-focus">trap focus</label>
-      <input type="checkbox" id="trap-focus"></input>
-      <label htmlFor="autoFocus">autoFocus child</label>
-      <input type="checkbox" id="autoFocus"></input>
-      <div>
-        <button onClick={() => setOpen((open) => !open)}>
-          Trap is {open ? 'active' : 'inactive'}
-        </button>
-      </div>
-      <Modal show={open} onClose={() => setOpen(false)}>
-        <FocusTrap isActive={open} focusFromEnd={true} trapFocus={false}>
+
+      <Modal show={open} onClose={() => handleOpen()}>
+        <FocusTrap isActive={open} focusFromEnd={false} trapFocus={true}>
           <Modal.Header>Hello</Modal.Header>
           <Modal.Body>
             <div>
               <button>BUTTON 1</button>
             </div>
             <div>
-              <button autoFocus>BUTTON Auto</button>
+              <span tabIndex={0}>Focuasable span</span>
+            </div>
+            <div>
+              <span tabIndex={1}>Un-Focuasable span</span>
+            </div>
+            <div>
+              <button>BUTTON Auto</button>
+            </div>
+            <div>
+              <button autoFocus={false}>BUTTON Auto</button>
             </div>
             <div>
               <button className="w-0 h-0"></button>
