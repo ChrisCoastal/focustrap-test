@@ -9,7 +9,7 @@ export interface FocusTrapProps extends PropsWithChildren<ComponentProps<'div'>>
 }
 
 interface FocusableElement extends Element {
-  focus?: () => void;
+  focus?: (options?: { preventScroll?: boolean; focusVisible?: boolean }) => void;
 }
 
 export const FocusTrap: FC<FocusTrapProps> = ({
@@ -62,7 +62,7 @@ export const FocusTrap: FC<FocusTrapProps> = ({
 
     return () => {
       // When the component unmounts, return focus to the previously focused element
-      prevFocusedRef.current?.focus?.();
+      prevFocusedRef.current?.focus?.({ preventScroll: true });
     };
   }, [isActive]);
 
@@ -103,8 +103,9 @@ export const FocusTrap: FC<FocusTrapProps> = ({
     };
 
     // Move focus into the trap when it becomes active
+    // this will occur regardless trapFocus value, as focus should move into the
     const focusElement = initFocusFrom();
-    focusElement?.focus?.();
+    focusElement?.focus?.({ preventScroll: true });
 
     isActive && document.addEventListener('keydown', handleKeyDown);
 
