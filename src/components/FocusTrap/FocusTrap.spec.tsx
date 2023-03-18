@@ -27,7 +27,7 @@ describe('Components / FocusTrap', () => {
   });
 
   describe('A11y', () => {
-    it.todo('should focus on first focusable element within trap', async () => {
+    it('should focus on first focusable element within trap', async () => {
       const firstButton = within(modal).getAllByRole('button')[0];
 
       expect(modal).toContainElement(firstButton);

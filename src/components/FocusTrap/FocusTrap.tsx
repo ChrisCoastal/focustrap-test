@@ -82,7 +82,9 @@ export const FocusTrap: FC<FocusTrapProps> = ({
   useEffect(() => {
     console.log('isActive');
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Tab' || !trapFocus) return;
+      // let the client handle the keydown event if focus is not being trapped
+      // or if there are no focusable elements
+      if (event.key !== 'Tab' || !trapFocus || !focusableElementsRef.current.length) return;
 
       // Get the currently focused element
       const focusedElement = document.activeElement;
@@ -114,7 +116,7 @@ export const FocusTrap: FC<FocusTrapProps> = ({
 
       // if the focussed element is the first or last focussable element of the trap
       // then focus programmatically wraps to the other end
-      // otherwise the client will handle the focus change
+      // otherwise the client will handle the keydown event and focus change
       if (focusInTrap && event.shiftKey && focusedElement === firstFocusableRef.current) {
         // If shift is pressed and the first focusable element is focused, focus the last focusable element
         event.preventDefault();

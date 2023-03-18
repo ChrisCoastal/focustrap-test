@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { Modal } from 'flowbite-react';
+import { Modal } from 'flowbite-react';
 // import { FocusTrap } from './components/FocusTrap';
 import NestedButton from './components/NestedButton';
 import FragmentButton from './components/FragmentButton';
@@ -58,6 +58,7 @@ function App() {
       </div>
 
       <TestModal show={open} onClose={handleOpen} trapOptions={trapOptions}>
+        <span>MODAL</span>
         <button
           className="bg-gradient-to-br from-indigo-500 to-indigo-700 px-4 py-2 rounded-md text-sm font-bold text-white"
           onClick={handleInsert}>
