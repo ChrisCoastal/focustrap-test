@@ -21,7 +21,12 @@ const FocusIs = () => {
 
   return (
     <div>
-      Focus is on <span className="text-blue-500">{focusEl?.tagName}</span>
+      Focus is on{' '}
+      <span className="text-indigo-500">
+        {(focusEl?.tagName || '') +
+          ' ' +
+          ((focusEl?.tagName !== 'BODY' && focusEl?.innerText) || '')}
+      </span>
     </div>
   );
 };
