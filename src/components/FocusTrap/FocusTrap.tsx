@@ -80,7 +80,6 @@ export const FocusTrap: FC<FocusTrapProps> = ({
   }, [children]);
 
   useEffect(() => {
-    console.log('isActive');
     const handleKeyDown = (event: KeyboardEvent) => {
       // let the client handle the keydown event if focus is not being trapped
       // or if there are no focusable elements
@@ -132,7 +131,6 @@ export const FocusTrap: FC<FocusTrapProps> = ({
     const initFocusFrom = () => {
       const focusFrom = focusFromEnd ? lastFocusableRef.current : firstFocusableRef.current;
       // if autoFocus is passed to a child element, focus that element instead
-      console.log(focusFrom);
       return autoFocusedChildRef.current || focusFrom;
     };
 
