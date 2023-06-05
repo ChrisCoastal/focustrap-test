@@ -8,8 +8,8 @@ import { focusable } from 'tabbable';
  * improving keyboard navigation with certain UI (ie: a modal dialog).
  * When active, it limits focus to children of the component.
  * On unmount focus returns to the previously focused element outside of the FocusTrap.
- * @param {boolen} trapFocus - default set to true boolean to toggle focus trapping; when this is set to false, the trap will only initiate the focus but not hold it
- * @param {boolen} focusFromEnd - default set to false boolean to toggle focus from end
+ * @param {boolean} trapFocus - default set to true boolean to toggle focus trapping; when this is set to false, the trap will only initiate the focus but not hold it
+ * @param {boolean} focusFromEnd - default set to false boolean to toggle focus from end
  */
 
 export interface FocusTrapProps extends PropsWithChildren<ComponentProps<'div'>> {
